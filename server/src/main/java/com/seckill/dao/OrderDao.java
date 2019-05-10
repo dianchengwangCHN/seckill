@@ -1,7 +1,7 @@
-package com.seckill.seckill.dao;
+package com.seckill.dao;
 
-import com.seckill.seckill.domain.OrderInfo;
-import com.seckill.seckill.domain.SeckillOrder;
+import com.seckill.domain.OrderInfo;
+import com.seckill.domain.SeckillOrder;
 import org.apache.ibatis.annotations.*;
 
 @Mapper

@@ -1,4 +1,4 @@
-package com.seckill.seckill.domain;
+package com.seckill.domain;
 
 public class Goods {
     private Long id;

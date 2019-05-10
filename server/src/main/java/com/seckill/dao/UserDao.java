@@ -1,6 +1,6 @@
-package com.seckill.seckill.dao;
+package com.seckill.dao;
 
-import com.seckill.seckill.domain.User;
+import com.seckill.domain.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

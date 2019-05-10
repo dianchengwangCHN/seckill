@@ -1,4 +1,4 @@
-package com.seckill.seckill.domain;
+package com.seckill.domain;
 
 import java.util.Date;
 
