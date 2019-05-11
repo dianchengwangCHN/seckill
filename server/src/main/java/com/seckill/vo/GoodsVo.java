@@ -1,8 +1,10 @@
 package com.seckill.vo;
 
+import com.seckill.domain.Goods;
+
 import java.util.Date;
 
-public class GoodsVo {
+public class GoodsVo extends Goods {
     private Double seckillPrice;
     private Integer stockCount;
     private Date startDate;
