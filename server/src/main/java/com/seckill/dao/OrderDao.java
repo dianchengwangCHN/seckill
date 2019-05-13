@@ -3,7 +3,9 @@ package com.seckill.dao;
 import com.seckill.domain.OrderInfo;
 import com.seckill.domain.SeckillOrder;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
+@Repository
 @Mapper
 public interface OrderDao {
 

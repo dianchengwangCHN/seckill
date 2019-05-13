@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class GoodsService {
 
+    private final GoodsDao goodsDao;
+
     @Autowired
-    GoodsDao goodsDao;
+    public GoodsService(GoodsDao goodsDao) {
+        this.goodsDao = goodsDao;
+    }
 
     public List<GoodsVo> listGoodsVo() {
         return goodsDao.listGoodsVo();
