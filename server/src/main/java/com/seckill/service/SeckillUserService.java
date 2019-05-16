@@ -8,7 +8,9 @@ import com.seckill.exception.SeckillException;
 import com.seckill.redis.RedisService;
 import com.seckill.redis.SeckillUserKey;
 import com.seckill.util.MD5Util;
+import com.seckill.util.UUIDUtil;
 import com.seckill.vo.AuthVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,22 @@ public class SeckillUserService {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
+        }
+        return user;
+    }
+
+    public SeckillUser getByToken(HttpServletResponse response, String token) {
+        if (StringUtils.isEmpty(token)) {
+            return null;
+        }
+        SeckillUser user = null;
+        try {
+            user = redisService.get(SeckillUserKey.getToken, token, SeckillUser.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (user != null) {
+            addCookie(response, token, user);
         }
         return user;
     }
@@ -84,7 +102,7 @@ public class SeckillUserService {
         if (!calcPass.equals(dbPass)) {
             throw new SeckillException(SeckillStatus.SECKILL_FAIL);
         }
-        String token = "";
+        String token = UUIDUtil.uuid();
         addCookie(response, token, user);
         return token;
     }
