@@ -1,18 +1,17 @@
 package com.seckill.exception;
 
-import com.seckill.enums.SeckillStatus;
+import com.seckill.enums.CodeMsg;
 
 public class SeckillException extends RuntimeException {
 
-    private SeckillStatus status;
+    private CodeMsg codeMsg;
 
-    public SeckillException(SeckillStatus status) {
-        super(status.toString());
-        this.status = status;
+    public SeckillException(CodeMsg codeMsg) {
+        super(codeMsg.toString());
+        this.codeMsg = codeMsg;
     }
 
-    public SeckillStatus getStatus() {
-        return status;
+    public CodeMsg getCodeMsg() {
+        return codeMsg;
     }
-
 }

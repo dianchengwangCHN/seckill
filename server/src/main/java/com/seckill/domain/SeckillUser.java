@@ -3,8 +3,8 @@ package com.seckill.domain;
 import java.util.Date;
 
 public class SeckillUser {
-    private String id;
-    private String nickname;
+    private Long id;
+    private String email;
     private String password;
     private String salt;
     private String head;
@@ -12,20 +12,20 @@ public class SeckillUser {
     private Date lastLoginDate;
     private Integer loginCount;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

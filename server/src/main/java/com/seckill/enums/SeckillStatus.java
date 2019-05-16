@@ -1,39 +1,22 @@
 package com.seckill.enums;
 
 public enum SeckillStatus {
-    SUCCESS(0, "Success"),
-    SERVER_ERROR(500100, "Server error"),
-    SECKILL_OVER(500500, "Seckill has closed"),
-    REPEAT_KILL(500501, "Cannot repeat purchase"),
-    SECKILL_FAIL(500502, "Operation fails"),
+    WAITING(0),
+    PROCEEDING(1),
+    FINISHED(2)
     ;
 
-    private int code;
-    private String msg;
+    private int statusCode;
 
-    private SeckillStatus(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
+    SeckillStatus(int statusCode) {
+        this.statusCode = statusCode;
     }
 
-    public int getCode() {
-        return code;
+    public int getStatusCode() {
+        return statusCode;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    @Override
-    public String toString() {
-        return "CodeMsg [code=" + code + ", msg=" + msg + "]";
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 }

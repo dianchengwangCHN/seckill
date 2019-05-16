@@ -6,7 +6,7 @@ public class OrderInfo {
     private Long id;
     private Long userId;
     private Long goodsId;
-    private Long deliveryAddId;
+    private Long deliveryAddrId;
     private String goodsName;
     private Integer goodsCount;
     private Double goodsPrice;
@@ -39,12 +39,12 @@ public class OrderInfo {
         this.goodsId = goodsId;
     }
 
-    public Long getDeliveryAddId() {
-        return deliveryAddId;
+    public Long getDeliveryAddrId() {
+        return deliveryAddrId;
     }
 
-    public void setDeliveryAddId(Long deliveryAddId) {
-        this.deliveryAddId = deliveryAddId;
+    public void setDeliveryAddrId(Long deliveryAddrId) {
+        this.deliveryAddrId = deliveryAddrId;
     }
 
     public String getGoodsName() {

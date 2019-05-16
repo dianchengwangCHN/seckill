@@ -1,18 +1,19 @@
 package com.seckill.vo;
 
 import com.seckill.domain.SeckillUser;
+import com.seckill.enums.SeckillStatus;
 
 public class GoodsDetailVo {
-    private int seckillStatus = 0;
+    private SeckillStatus seckillStatus = SeckillStatus.WAITING;
     private int remainSeconds = 0;
     private GoodsVo goods;
     private SeckillUser user;
 
-    public int getSeckillStatus() {
+    public SeckillStatus getSeckillStatus() {
         return seckillStatus;
     }
 
-    public void setSeckillStatus(int seckillStatus) {
+    public void setSeckillStatus(SeckillStatus seckillStatus) {
         this.seckillStatus = seckillStatus;
     }
 

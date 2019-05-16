@@ -3,7 +3,7 @@ package com.seckill.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.seckill.dao.SeckillUserDao;
 import com.seckill.domain.SeckillUser;
-import com.seckill.enums.SeckillStatus;
+import com.seckill.enums.CodeMsg;
 import com.seckill.exception.SeckillException;
 import com.seckill.redis.RedisService;
 import com.seckill.redis.SeckillUserKey;
@@ -29,20 +29,20 @@ public class SeckillUserService {
     @Autowired
     RedisService redisService;
 
-    public SeckillUser getById(String id) {
+    public SeckillUser getByEmail(String email) {
         SeckillUser user = null;
         try {
-            user = redisService.get(SeckillUserKey.getById, "" + id, SeckillUser.class);
+            user = redisService.get(SeckillUserKey.getByEmail, "" + email, SeckillUser.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
         if (user != null) {
             return user;
         }
-        user = seckillUserDao.getById(id);
+        user = seckillUserDao.getByEmail(email);
         if (user != null) {
             try {
-                redisService.set(SeckillUserKey.getById, "" + id, user);
+                redisService.set(SeckillUserKey.getByEmail, "" + email, user);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -66,17 +66,17 @@ public class SeckillUserService {
         return user;
     }
 
-    public boolean updatePassword(String token, String id, String formPass) {
-        SeckillUser user = getById(id);
+    public boolean updatePassword(String token, String email, String formPass) {
+        SeckillUser user = getByEmail(email);
         if (user == null) {
             System.out.println("user does not exists");
         }
         SeckillUser toBeUpdate = new SeckillUser();
-        toBeUpdate.setId(id);
+        toBeUpdate.setEmail(email);
         toBeUpdate.setPassword(MD5Util.formPassToDBPass(formPass, user.getSalt()));
         seckillUserDao.update(toBeUpdate);
         // update cache
-        redisService.delete(SeckillUserKey.getById, "" + id);
+        redisService.delete(SeckillUserKey.getByEmail, "" + email);
         user.setPassword(toBeUpdate.getPassword());
         try {
             redisService.set(SeckillUserKey.getToken, token, user);
@@ -88,19 +88,19 @@ public class SeckillUserService {
 
     public String login(HttpServletResponse response, AuthVo authVo) {
         if (authVo == null) {
-            throw new SeckillException(SeckillStatus.SERVER_ERROR);
+            throw new SeckillException(CodeMsg.SERVER_ERROR);
         }
         String email = authVo.getEmail();
         String formPass = authVo.getPassword();
-        SeckillUser user = getById(email);
+        SeckillUser user = getByEmail(email);
         if (user == null) {
-            throw new SeckillException(SeckillStatus.SECKILL_FAIL);
+            throw new SeckillException(CodeMsg.SECKILL_FAIL);
         }
         String dbPass = user.getPassword();
         String saltDB = user.getSalt();
         String calcPass = MD5Util.formPassToDBPass(formPass, saltDB);
         if (!calcPass.equals(dbPass)) {
-            throw new SeckillException(SeckillStatus.SECKILL_FAIL);
+            throw new SeckillException(CodeMsg.SECKILL_FAIL);
         }
         String token = UUIDUtil.uuid();
         addCookie(response, token, user);
