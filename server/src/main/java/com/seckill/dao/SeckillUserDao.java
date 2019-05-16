@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface SeckillUserDao {
 
     @Select("select * from seckill_user where id = #{id}")
-    public SeckillUser getById(@Param("id")long id);
+    public SeckillUser getById(@Param("id")String id);
 
     @Update("update seckill_user set password = #{password} where id = #{id}")
     public void update(SeckillUser toBeUpdate);

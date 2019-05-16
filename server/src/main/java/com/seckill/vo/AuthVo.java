@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class LoginVo {
+public class AuthVo {
 
     @NotNull
     @IsEmail
@@ -14,6 +14,8 @@ public class LoginVo {
     @NotNull
     @Length(min=32)
     private String password;
+
+    private String confirmPassword;
 
     public String getEmail() {
         return email;
@@ -33,6 +35,6 @@ public class LoginVo {
 
     @Override
     public String toString() {
-        return "LoginVo [email=" + email + ", password=" + password + "]";
+        return "AuthVo [email=" + email + ", password=" + password + "]";
     }
 }
