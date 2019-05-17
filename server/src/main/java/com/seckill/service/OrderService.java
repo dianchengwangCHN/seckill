@@ -9,11 +9,13 @@ import com.seckill.redis.OrderKey;
 import com.seckill.redis.RedisService;
 import com.seckill.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.Date;
 
+@Service
 public class OrderService {
 
     @Autowired
@@ -22,7 +24,7 @@ public class OrderService {
     @Autowired
     private RedisService redisService;
 
-    public SeckillOrder getSeckillOrderByuserIdGoodsId(long userId, long goodsId) {
+    public SeckillOrder getSeckillOrderByUserIdGoodsId(long userId, long goodsId) {
         try {
             return redisService.get(OrderKey.getSeckillOrderByUidGid, "" + userId + "_" + goodsId, SeckillOrder.class);
         } catch (IOException e) {
