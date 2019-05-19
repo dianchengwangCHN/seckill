@@ -1,6 +1,7 @@
 package com.seckill.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.seckill.access.AccessLimit;
 import com.seckill.domain.SeckillOrder;
 import com.seckill.domain.SeckillUser;
 import com.seckill.dto.Result;
@@ -19,6 +20,7 @@ import com.seckill.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +79,17 @@ public class SeckillController {
         redisService.delete(SeckillKey.isGoodsOver);
         seckillService.reset(goodsList);
         return Result.success(true);
+    }
+
+    @AccessLimit(seconds = 5, maxCount = 5, needLogin = true)
+    @GetMapping("/path")
+    public Result<String> getSeckilPath(HttpServletRequest request, SeckillUser user,
+                                        @RequestParam("goodsId") long goodsId) {
+        if (user == null) {
+            return Result.error(CodeMsg.SESSION_ERROR);
+        }
+        String path = seckillService.createSeckillPath(user, goodsId);
+        return Result.success(path);
     }
 
     @PostMapping("/{path}/seckill")
